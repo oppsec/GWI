@@ -59,7 +59,6 @@ def website_br(website_input):
     domain = whois.whois(website_input)
 
     print("### WEBSITE ###")
-    print(domain)
     print("- [#] Domain:", domain.get('domain', 'Not found'))
     print("- [#] Registrant:", domain.get('registrant', 'Not found'))
     print("- [#] DNS:", domain.get('nserver', 'Not found'))
