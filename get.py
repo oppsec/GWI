@@ -22,8 +22,10 @@ ascii = """
   Get Website Info | @dsmuix   
 """
 
+
 def clear():
     os.system('cls' if os.name == 'nt' else 'clear')
+
 
 def start():
     clear()
@@ -42,6 +44,7 @@ def start():
         print(Fore.RED + "\n- [x] Connection failed")
         time.sleep(1)
         start()
+
 
 def verify(website_input):
     if '.com.br' in website_input:
@@ -68,6 +71,7 @@ def website_br(website_input):
     print("- [#] Address:", domain.get('address', 'Not found'))
     print("- [#] Country:", domain.get('country', 'Not found'))
 
+
 def website_com(website_input):
     print(Fore.YELLOW + "- [!] Getting website info...\n")
     time.sleep(1)
@@ -83,5 +87,6 @@ def website_com(website_input):
     print("- [#] Name:", domain.get('name', 'Not found'))
     print("- [#] Address:", domain.get('address', 'Not found'))
     print("- [#] Country:", domain.get('country', 'Not found'))
+
 
 start()
