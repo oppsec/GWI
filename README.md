@@ -1,5 +1,5 @@
-# GWI
-![gwi](https://i.imgur.com/Rj5ecyn.jpg)
+# GWI | Get Website Info
+![gui](https://i.imgur.com/Rr5GB7v.jpg)
 
 GWI is a extremely basic tool in python to get website informations with Whois for Python.
 
