@@ -60,8 +60,6 @@ def website_br(website_input):
     domain = whois.whois(website_input)
     dget = domain.get
 
-    print(domain)
-
     print("### WEBSITE ###")
     print("- [#] Domain:", dget('domain', 'Not found'))
     print("- [#] Registrant:", dget('registrant', 'Not found'))
