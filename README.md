@@ -1,7 +1,7 @@
 # GWI | Get Website Info
 ![gui](https://i.imgur.com/Rr5GB7v.jpg)
 
-GWI is a extremely basic tool in python to get website informations with Whois for Python.
+Get Website Info (GWI) is a python tool to get website informations with Whois module
 
 ## Installation
 `git clone https://github.com/dsmuix/GWI.git'`
