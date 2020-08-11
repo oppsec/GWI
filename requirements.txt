@@ -1,4 +1,4 @@
 requests==2.23.0
 whois==0.9.7
-colorama==0.4.3
+rich==5.1.2
 python-whois==0.7.2
