@@ -8,14 +8,14 @@ from rich.prompt import Prompt
 
 ## ASCII BANNER
 ascii = """[bold magenta]
-                                   
-   _|_|_|  _|          _|  _|_|_|  
- _|        _|          _|    _|    
- _|  _|_|  _|    _|    _|    _|    
- _|    _|    _|  _|  _|      _|    
-   _|_|_|      _|  _|      _|_|_|  
 
-    Get Website Info 2.0 | oppsec [/bold magenta]                           
+   _|_|_|  _|          _|  _|_|_|
+ _|        _|          _|    _|
+ _|  _|_|  _|    _|    _|    _|
+ _|    _|    _|  _|  _|      _|
+   _|_|_|      _|  _|      _|_|_|
+
+    Get Website Info 2.0 | oppsec [/bold magenta]
 """
 
 asciiDots = "[bold white]. . . . . . . . . . . . . . . . . . .[/bold white] \n"
@@ -65,10 +65,19 @@ def getWebsiteInformations(websiteLink):
             self.websiteEmail = whoIsWebsite['email']
 
         ## Return website informations
+
         def __str__(self):
-            return """ Domain Name ~> {domain_name} \n Registrant Name ~> {registrant_name} \n Website Country ~> {country} \n Website Status ~> {status} \n Emails ~> {email}
-            """.format(domain_name=self.domain_name, registrant_name=self.registrant_name, country=self.websiteCountry, status=self.websiteStatus, email=self.websiteEmail)
-    
+            content_data = [
+                f"Domain Name ~> {self.domain_name}\n",
+                f"Registrant Name {self.registrant_name}\n",
+                f"Website Country {self.websiteCountry}\n",
+                f"Website Status {self.websiteStatus}\n",
+                f"Emails {self.websiteEmail}"
+            ]
+
+            for info in content_data:
+                print(info)
+
     try:
         websiteInfo = WhoIsInfo(websiteLink)
         print(websiteInfo)
