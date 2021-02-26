@@ -18,51 +18,49 @@ ascii = """[bold magenta]
     Get Website Info 2.0 | oppsec [/bold magenta]
 """
 
-asciiDots = "[bold white]. . . . . . . . . . . . . . . . . . .[/bold white] \n"
+ascii_dots = "[bold white]. . . . . . . . . . . . . . . . . . .[/] \n"
 
 
-def clearTerminal():
+def clear_terminal():
     os.system('cls' if os.name == 'nt' else 'clear')
 
 
 def menu():
-    clearTerminal()
+    clear_terminal()
 
-    # GWI Banner
     print(ascii)
-    print(asciiDots)
+    print(ascii_dots)
 
-    getUsername = socket.gethostname()
-    print(
-        f"[!] Welcome [bold magenta]{getUsername}[/bold magenta]", ":smiley:", "\n")
+    get_username = socket.gethostname()
+    print(f"[!] Welcome [bold magenta]{get_username}[/]", ":smiley:", "\n")
 
-    checkWebsite()
+    check_website()
 
 
 ## Check Website Status
-def checkWebsite():
-    print("[bold red]![/bold red] Only works with [bold red]HTTPS[/bold red] websites")
-    websiteLink = Prompt.ask('[bold green]#[/bold green] Website URL', default="https://...")
-    websiteRequest = requests.get(websiteLink)
+def check_website():
+    print("[bold red]![/] Only works with [bold red]HTTPS[/] websites")
+    website_url = Prompt.ask('[bold green]#[/] Website URL', default="https://...")
+    website_request = requests.get(website_url)
 
-    if(websiteRequest.status_code == 200):
-        print('\n[bold green]# 200 | Connected[/bold green]', ":smiley:", '\n')
-        getWebsiteInformations(websiteLink)
+    if(website_request.status_code == 200):
+        print('\n[bold green]# 200 | Connected[/]', ":smiley:", '\n')
+        get_website_information(website_url)
     else:
-        print("\n[bold red]# ERROR | Can't connect [/bold red]", ":rage:", '\n')
+        print("\n[bold red]# ERROR | Can't connect [/]", ":rage:", '\n')
 
 
-def getWebsiteInformations(websiteLink):
+def get_website_information(website_url):
 
     ## Website Informations - Class
-    class WhoIsInfo:
-        def __init__(self, websiteLink):
-            whoIsWebsite = whois.whois(websiteLink)
-            self.domain_name = whoIsWebsite['domain_name']
-            self.registrant_name = whoIsWebsite['registrant_name']
-            self.websiteCountry = whoIsWebsite['country']
-            self.websiteStatus = whoIsWebsite['status']
-            self.websiteEmail = whoIsWebsite['email']
+    class whois_website:
+        def __init__(self, website_url):
+            whois_website = whois.whois(website_url)
+            self.domain_name = whois_website['domain_name']
+            self.registrant_name = whois_website['registrant_name']
+            self.websiteCountry = whois_website['country']
+            self.websiteStatus = whois_website['status']
+            self.websiteEmail = whois_website['email']
 
         ## Return website informations
 
@@ -79,10 +77,10 @@ def getWebsiteInformations(websiteLink):
                 print(info)
 
     try:
-        websiteInfo = WhoIsInfo(websiteLink)
-        print(websiteInfo)
+        website_info = whois_website(website_url)
+        print(website_info)
     except:
-        print("[bold blue]Sorry I couldn't get any information[/bold blue]", ":sob:")
+        print("[bold blue]Sorry I couldn't get any information[/]", ":sob:")
 
 if __name__ == '__main__':
     menu()
