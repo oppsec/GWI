@@ -12,10 +12,10 @@
 <br><br>
 
 ## Set-Up
-1. [Python](https://www.python.org/) 3.0+ installed.<br>
-2. Set your terminal PATH to the folder path.<br>
-3. Type on your terminal ``pip install -r requirements.txt`` to install the required libraries.<br> 
-4. To run type``main.py`` if not works, try using ``python3 main.py``.<br>
+1. [Python](https://www.python.org/) 3.0+ installed. <br>
+2. Set your terminal path to the folder path. <br>
+3. Type on your terminal ``pip install -r requirements.txt`` to install the required libraries. <br> 
+4. To run type``main.py`` if not works, try using ``python3 main.py``. <br>
 5. Done, you can use **GWI** now.
 <br><br>
 
