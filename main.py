@@ -1,86 +1,57 @@
 import whois
 import os
-import socket
 import requests
 
 from rich import print
-from rich.prompt import Prompt
 
-## ASCII BANNER
-ascii = """[bold magenta]
+from design.ascii import get_ascii
+from design.clear import clear
 
-   _|_|_|  _|          _|  _|_|_|
- _|        _|          _|    _|
- _|  _|_|  _|    _|    _|    _|
- _|    _|    _|  _|  _|      _|
-   _|_|_|      _|  _|      _|_|_|
-
-    Get Website Info 2.0 | oppsec [/bold magenta]
-"""
+from requests.packages.urllib3.exceptions import InsecureRequestWarning
+requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 ascii_dots = "[bold white]. . . . . . . . . . . . . . . . . . .[/] \n"
 
 
-def clear_terminal():
-    os.system('cls' if os.name == 'nt' else 'clear')
+def main():
+    clear()
+    get_ascii()
 
-
-def menu():
-    clear_terminal()
-
-    print(ascii)
     print(ascii_dots)
-
-    get_username = socket.gethostname()
-    print(f"[!] Welcome [bold magenta]{get_username}[/]", ":smiley:", "\n")
-
     check_website()
 
 
-## Check Website Status
 def check_website():
-    print("[bold red]![/] Only works with [bold red]HTTPS[/] websites")
-    website_url = Prompt.ask('[bold green]#[/] Website URL', default="https://...")
-    website_request = requests.get(website_url)
-
-    if(website_request.status_code == 200):
-        print('\n[bold green]# 200 | Connected[/]', ":smiley:", '\n')
-        get_website_information(website_url)
-    else:
-        print("\n[bold red]# ERROR | Can't connect [/]", ":rage:", '\n')
-
-
-def get_website_information(website_url):
-
-    ## Website Informations - Class
-    class whois_website:
-        def __init__(self, website_url):
-            whois_website = whois.whois(website_url)
-            self.domain_name = whois_website['domain_name']
-            self.registrant_name = whois_website['registrant_name']
-            self.websiteCountry = whois_website['country']
-            self.websiteStatus = whois_website['status']
-            self.websiteEmail = whois_website['email']
-
-        ## Return website informations
-
-        def __str__(self):
-            content_data = [
-                f"Domain Name ~> {self.domain_name}\n",
-                f"Registrant Name {self.registrant_name}\n",
-                f"Website Country {self.websiteCountry}\n",
-                f"Website Status {self.websiteStatus}\n",
-                f"Emails {self.websiteEmail}"
-            ]
-
-            for info in content_data:
-                print(info)
+    website_url = input("::  Website URL ~> ")
 
     try:
-        website_info = whois_website(website_url)
-        print(website_info)
-    except:
-        print("[bold blue]Sorry I couldn't get any information[/]", ":sob:")
+        response = requests.get(website_url, verify=False, timeout=10)
+        status_code = response.status_code
+
+        if(status_code == 200):
+            print('\n[bold green][!] | Connected[/]', ":smiley:")
+            whois_website(website_url)
+        else:
+            print("\n[bold red][!] | Can't connect [/]", ":rage:")
+
+    except requests.exceptions.ConnectionError:
+        return print("[bold red][!] | Connection error, check your URL and website status.")
+    except requests.exceptions.MissingSchema:
+        return print("[bold red][!] | URL without http or https, please verify.")
+
+def whois_website(website_url):
+    domain = whois.whois(website_url)
+    
+    name = domain.name
+    registrant_name = domain.registrar
+    name_servers = domain.name_servers
+
+    print(f"""[magenta]
+:: Domain: {name}
+:: Registrant Name: {registrant_name}
+:: Name Servers: {name_servers}
+    [/]""")
+    
 
 if __name__ == '__main__':
-    menu()
+    main()
